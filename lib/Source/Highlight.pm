@@ -18,7 +18,7 @@ has 'source_highlight_command' => (
 sub format {
     my ($self, $code, $lang) = @_;
 
-    my $fh = File::Temp->new();
+    my $fh = File::Temp->new(CLEANUP => 1);
     my $filename  = $fh->filename;
     print {$fh} $code;
     close $fh;
