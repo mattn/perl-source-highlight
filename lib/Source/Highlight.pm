@@ -15,6 +15,15 @@ has 'source_highlight_command' => (
     },
 );
 
+sub format_file {
+    my ($self, $filename, $lang) = @_;
+
+    my $cmd = $self->source_highlight_command;
+    my $langopt = $lang ? " -s $lang " : "";
+    my $html = qx "$cmd $langopt -o STDOUT $filename";
+    return $html;
+}
+
 sub format {
     my ($self, $code, $lang) = @_;
 
@@ -24,7 +33,8 @@ sub format {
     close $fh;
 
     my $cmd = $self->source_highlight_command;
-    my $html = qx "$cmd -s $lang -o STDOUT $filename";
+    my $langopt = $lang ? " -s $lang " : "";
+    my $html = qx "$cmd $langopt -o STDOUT $filename";
     return $html;
 }
 
