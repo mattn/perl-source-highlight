@@ -24,7 +24,7 @@ sub format {
     close $fh;
 
     my $cmd = $self->source_highlight_command;
-    my $html = qx "$cmd -o STDOUT $filename";
+    my $html = qx "$cmd -s $lang -o STDOUT $filename";
     return $html;
 }
 
