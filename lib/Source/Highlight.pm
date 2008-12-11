@@ -20,7 +20,8 @@ sub format_file {
 
     my $cmd = $self->source_highlight_command;
     my $langopt = $lang ? " -s $lang " : "";
-    my $html = qx "$cmd $langopt -o STDOUT $filename";
+    my $nulldev = $^O eq "MSWin32" ? "NUL" : "/dev/null";
+    my $html = qx "$cmd $langopt -o STDOUT $filename 2> $nulldev";
     return $html;
 }
 
